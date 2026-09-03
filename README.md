@@ -237,10 +237,13 @@ Before the first release, add this trusted publisher in the PyPI project setting
 
 | Field | Value |
 |-------|-------|
+| Project name | `nessuscli` |
 | Owner | `seifreed` |
 | Repository | `nessuscli` |
 | Workflow | `publish.yml` |
 | Environment | `pypi` |
+
+Because this is a new project, add it from your PyPI account's **Publishing** page as a pending publisher. In GitHub, create an environment named `pypi` under **Settings > Environments**.
 
 Update the version in `pyproject.toml`, create and push a version tag such as `v0.1.0`, and create the GitHub release from that tag if desired. The `publish.yml` workflow runs only for `v*` tags, builds the wheel and source distribution, then uploads both to PyPI using the OIDC identity.
 
