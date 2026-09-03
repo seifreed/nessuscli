@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "nessuscli"
 version = "0.1.0"
-description = "A Python library and CLI for the Nessus REST API"
+description = "A Python library and CLI for the Nessus Professional REST API"
 readme = "README.md"
 requires-python = ">=3.14"
 license = "MIT"

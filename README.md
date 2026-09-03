@@ -5,7 +5,7 @@
 <h1 align="center">nessuscli</h1>
 
 <p align="center">
-  <strong>Contract-driven Python client and CLI for the Nessus REST API</strong>
+  <strong>Python client and CLI for Nessus Professional's REST API</strong>
 </p>
 
 <p align="center">
