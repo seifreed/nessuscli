@@ -242,7 +242,7 @@ Before the first release, add this trusted publisher in the PyPI project setting
 | Workflow | `publish.yml` |
 | Environment | `pypi` |
 
-Update the version in `pyproject.toml`, create a GitHub release, and mark it as published. The `publish.yml` workflow builds the wheel and source distribution, then uploads both to PyPI using the OIDC identity.
+Update the version in `pyproject.toml`, create and push a version tag such as `v0.1.0`, and create the GitHub release from that tag if desired. The `publish.yml` workflow runs only for `v*` tags, builds the wheel and source distribution, then uploads both to PyPI using the OIDC identity.
 
 ---
 
