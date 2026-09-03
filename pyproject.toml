@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nessuscli"
+version = "0.1.0"
+description = "A Python library and CLI for the Nessus REST API"
+readme = "README.md"
+requires-python = ">=3.14"
+license = {text = "MIT"}
+authors = [{name = "Marc Rivero Lopez", email = "mriverolopez@gmail.com"}]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "bandit>=1.8",
+    "black>=25.0",
+    "mypy>=1.15",
+    "pip-audit>=2.9",
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.9",
+]
+
+[project.scripts]
+nessus = "nessuscli.cli:main"
+
+[tool.setuptools.package-data]
+nessuscli = ["api_spec.json"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 88
+target-version = ["py314"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.mypy]
+python_version = "3.14"
+exclude = ["^venv/"]
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
