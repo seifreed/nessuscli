@@ -229,6 +229,23 @@ The test suite uses real local HTTP integration paths and does not require Nessu
 
 ---
 
+## PyPI Publishing (OIDC)
+
+The repository publishes distributions through PyPI Trusted Publishing. The workflow uses GitHub Actions OIDC and does not require a `PYPI_API_TOKEN` secret.
+
+Before the first release, add this trusted publisher in the PyPI project settings:
+
+| Field | Value |
+|-------|-------|
+| Owner | `seifreed` |
+| Repository | `nessuscli` |
+| Workflow | `publish.yml` |
+| Environment | `pypi` |
+
+Update the version in `pyproject.toml`, create a GitHub release, and mark it as published. The `publish.yml` workflow builds the wheel and source distribution, then uploads both to PyPI using the OIDC identity.
+
+---
+
 ## Requirements
 
 - Python 3.14 or newer

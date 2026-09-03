@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "A Python library and CLI for the Nessus REST API"
 readme = "README.md"
 requires-python = ">=3.14"
-license = {text = "MIT"}
+license = "MIT"
 authors = [{name = "Marc Rivero Lopez", email = "mriverolopez@gmail.com"}]
 dependencies = []
 
@@ -16,6 +16,7 @@ dependencies = []
 dev = [
     "bandit>=1.8",
     "black>=25.0",
+    "build>=1.2",
     "mypy>=1.15",
     "pip-audit>=2.9",
     "pytest>=8.0",
