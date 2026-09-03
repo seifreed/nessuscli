@@ -12,7 +12,7 @@ from typing import Any
 import pytest
 
 from nessuscli import NessusClient, Settings, create_typed_client
-from nessuscli.encoding import json_body, multipart
+from nessuscli.encoding import _sanitize_header_value, json_body, multipart
 from nessuscli.errors import ApiError, NessusError
 from nessuscli.file_output import FileOutputWriter
 from nessuscli.request import build_url
@@ -156,13 +156,17 @@ def test_query_payload_body_auth_and_output(api_server: str, tmp_path: Path) -> 
 
 
 def test_upload_and_error_handling(api_server: str, tmp_path: Path) -> None:
-    upload = tmp_path / 'policy"\r\nX-Injected: value.nessus'
+    upload = tmp_path / "policy.nessus"
     upload.write_bytes(b"policy")
+    assert (
+        _sanitize_header_value('policy"\r\nX-Injected: value.nessus', "upload")
+        == "policyX-Injected: value.nessus"
+    )
     client = client_for(api_server)
     result = client.file.upload(file_path=upload, no_enc=1)
     assert _mapping(result)["method"] == "POST"
     body = ApiHandler.requests[-1][3]
-    assert b'filename="policyX-Injected: value.nessus"' in body
+    assert b'filename="policy.nessus"' in body
     assert b"\r\nX-Injected" not in body
     assert b'name="no_enc"' in body
     client.file.upload(

@@ -13,6 +13,10 @@ from .errors import NessusError
 from .types import JsonValue
 
 
+def _sanitize_header_value(value: str, fallback: str) -> str:
+    return re.sub(r'["\r\n]', "", value) or fallback
+
+
 def json_body(
     operation: Operation,
     payload: dict[str, JsonValue],
@@ -37,7 +41,7 @@ def multipart(
     if not path.is_file():
         raise NessusError(f"File does not exist: {path}")
     boundary = f"nessuscli-{uuid.uuid4().hex}"
-    filename = re.sub(r'["\r\n]', "", path.name) or "upload"
+    filename = _sanitize_header_value(path.name, "upload")
     content_type = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
     chunks = [
         (
@@ -48,7 +52,7 @@ def multipart(
         b"\r\n",
     ]
     for name, value in payload.items():
-        field_name = re.sub(r'["\r\n]', "", name) or "field"
+        field_name = _sanitize_header_value(name, "field")
         chunks.append(
             (
                 f'--{boundary}\r\nContent-Disposition: form-data; name="{field_name}"'

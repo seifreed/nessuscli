@@ -40,6 +40,7 @@ class Settings:
             raise ConfigurationError("timeout must be a number")
         if self.verify_ssl is None:
             raise ConfigurationError("verify_ssl must be a boolean")
+        _validate_credentials(self.access_key, self.secret_key, self.token)
         object.__setattr__(
             self,
             "base_url",
@@ -61,7 +62,6 @@ class Settings:
                 _DEFAULT_VERIFY_SSL,
             ),
         )
-        _validate_credentials(self.access_key, self.secret_key, self.token)
 
     @classmethod
     def from_sources(
@@ -102,15 +102,15 @@ class Settings:
             "verify_ssl",
             _DEFAULT_VERIFY_SSL,
         )
-        normalized_base_url = _validate(
-            configured_base_url,
-            configured_access_key,
-            configured_secret_key,
-        )
         _validate_credentials(
             configured_access_key,
             configured_secret_key,
             configured_token,
+        )
+        normalized_base_url = _validate(
+            configured_base_url,
+            configured_access_key,
+            configured_secret_key,
         )
         return cls(
             base_url=normalized_base_url,
